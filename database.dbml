@@ -163,48 +163,60 @@ Table users {
 }
 
 Table categories {
-  id bigint [pk]
-  name varchar
-  slug varchar [unique]
+  id bigint [pk, increment]
+  name varchar [not null]
+  slug varchar [not null, unique]
   created_at timestamp
   updated_at timestamp
 }
 
 Table products {
-  id bigint [pk]
-  category_id bigint
-  name varchar
-  slug varchar [unique]
-  barcode varchar [unique]
-  price decimal(10,2)
-  in_stock boolean
+  id bigint [pk, increment]
+  category_id bigint [not null]
+  name varchar [not null]
+  slug varchar [not null, unique]
+  barcode varchar [not null, unique]
+  price decimal(10,2) [not null]
+  in_stock boolean [not null]
   created_at timestamp
   updated_at timestamp
+
+  Indexes {
+    category_id [name: "products_category_id_index"]
+  }
 }
+
+Ref products_category_id_foreign: products.category_id > categories.id [delete: restrict]
 
 Table carts {
   id bigint [pk, not null, increment]
-  user_id bigint [not null, ref: > users.id, unique]
+  user_id bigint [not null, unique]
   created_at timestamp
   updated_at timestamp
 }
 
+Ref carts_user_id_foreign: carts.user_id > users.id [delete: cascade]
+
 Table cart_items {
   id bigint [pk, not null, increment]
-  cart_id bigint [ref: > carts.id, not null]
-  product_id bigint [ref: > products.id, not null]
+  cart_id bigint [not null]
+  product_id bigint [not null]
   quantity "tinyint unsigned" [not null, default: 1]
   created_at timestamp
   updated_at timestamp
 
   Indexes {
     (cart_id, product_id) [unique, name: "cart_items_cart_id_product_id_unique"]
+    product_id [name: "cart_items_product_id_index"]
   }
 }
 
+Ref cart_items_cart_id_foreign: cart_items.cart_id > carts.id [delete: cascade]
+Ref cart_items_product_id_foreign: cart_items.product_id > products.id [delete: cascade]
+
 Table orders {
   id bigint [pk, not null, increment]
-  user_id bigint [ref: > users.id, not null]
+  user_id bigint [not null]
   // Financial Snapshot
   subtotal decimal(10,2) [not null]
   delivery_fee decimal(10,2) [not null]
@@ -213,7 +225,13 @@ Table orders {
   status orders_status_enum [not null, default: 'pending']
   created_at timestamp
   updated_at timestamp
+
+  Indexes {
+    user_id [name: "orders_user_id_index"]
+  }
 }
+
+Ref orders_user_id_foreign: orders.user_id > users.id [delete: restrict]
 
 Enum orders_status_enum {
   "pending"
@@ -225,15 +243,18 @@ Enum orders_status_enum {
 
 Table order_items {
   id bigint [pk, not null, increment]
-  order_id bigint [ref: > orders.id, not null]
+  order_id bigint [not null]
   // nullable in case a product is deleted from admin panel later
-  product_id bigint [ref: > products.id, null]
+  product_id bigint
   price_at_purchase decimal(10,2) [not null]
   quantity "tinyint unsigned" [not null]
   created_at timestamp
 
   Indexes {
-    order_id [name: "order_items_order_id_foreign"]
-    product_id [name: "order_items_product_id_foreign"]
+    order_id [name: "order_items_order_id_index"]
+    product_id [name: "order_items_product_id_index"]
   }
 }
+
+Ref order_items_order_id_foreign: order_items.order_id > orders.id [delete: cascade]
+Ref order_items_product_id_foreign: order_items.product_id > products.id [delete: set null]
