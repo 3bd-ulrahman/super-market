@@ -15,6 +15,7 @@ use Illuminate\Support\Carbon;
  * @property string $price_at_purchase
  * @property int $quantity
  * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
 class OrderItem extends Model
 {
