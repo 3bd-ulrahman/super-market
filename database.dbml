@@ -217,8 +217,8 @@ Table orders {
 
 Enum orders_status_enum {
   "pending"
-  "preparing"
   "out_for_delivery"
+  "delivering"
   "delivered"
   "cancelled"
 }
