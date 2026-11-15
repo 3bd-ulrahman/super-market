@@ -249,6 +249,7 @@ Table order_items {
   price_at_purchase decimal(10,2) [not null]
   quantity "tinyint unsigned" [not null]
   created_at timestamp
+  updated_at timestamp
 
   Indexes {
     order_id [name: "order_items_order_id_index"]

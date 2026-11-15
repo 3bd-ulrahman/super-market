@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->nullable()->index()->constrained()->nullOnDelete();
             $table->decimal('price_at_purchase', 10, 2);
             $table->unsignedTinyInteger('quantity');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
     }
 
