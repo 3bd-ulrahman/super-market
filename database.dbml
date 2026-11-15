@@ -94,7 +94,7 @@ Table migrations {
 }
 
 Table password_reset_tokens {
-  email varchar(255) [pk, not null]
+  phone varchar(20) [pk, not null]
   token varchar(255) [not null]
   created_at timestamp
 }
@@ -151,15 +151,14 @@ Table telescope_monitoring {
 Table users {
   id bigint [pk, not null, increment]
   name varchar(255) [not null]
-  email varchar(255) [not null]
-  email_verified_at timestamp
+  phone varchar(20) [not null]
   password varchar(255) [not null]
   remember_token varchar(100)
   created_at timestamp
   updated_at timestamp
 
   Indexes {
-    email [unique, name: "users_email_unique"]
+    phone [unique, name: "users_phone_unique"]
   }
 }
 
