@@ -55,7 +55,7 @@ class ConfigurationServiceProvider extends ServiceProvider
         FormRequest::failOnUnknownFields();
     }
 
-    private function relationEnforceMorphMap()
+    private function relationEnforceMorphMap(): void
     {
         Relation::enforceMorphMap([
             'user' => User::class,
