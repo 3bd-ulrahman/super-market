@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
@@ -18,12 +19,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property string $slug
  * @property string $barcode
  * @property string $price
+ * @property string|null $unit
  * @property bool $in_stock
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
 #[UseFactory(ProductFactory::class)]
-class Product extends Model
+class Product extends Model implements HasMedia
 {
     /** @use HasFactory<ProductFactory> */
     use HasFactory, InteractsWithMedia;
@@ -36,6 +38,7 @@ class Product extends Model
         'slug',
         'barcode',
         'price',
+        'unit',
         'in_stock',
     ];
 

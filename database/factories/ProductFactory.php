@@ -27,8 +27,19 @@ class ProductFactory extends Factory
             'slug' => $slug,
             'barcode' => fake()->unique()->ean13(),
             'price' => fake()->randomFloat(2, 1, 500),
+            'unit' => fake()->randomElement(['١ كجم', '١ لتر', '٢٥٠ جم', '٥ أرغفة']),
             'in_stock' => fake()->boolean(90),
         ];
+    }
+
+    /**
+     * Indicate that the product is in stock.
+     */
+    public function inStock(): static
+    {
+        return $this->state(fn (): array => [
+            'in_stock' => true,
+        ]);
     }
 
     /**

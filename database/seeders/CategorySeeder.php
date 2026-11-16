@@ -13,14 +13,13 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Fruits & Vegetables' => 'fruits-vegetables',
-            'Dairy & Eggs' => 'dairy-eggs',
-            'Meat & Poultry' => 'meat-poultry',
-            'Bakery' => 'bakery',
-            'Beverages' => 'beverages',
-            'Snacks' => 'snacks',
-            'Frozen Foods' => 'frozen-foods',
-            'Household' => 'household',
+            'عروض ومنتجات جديدة' => 'offers',
+            'مشروبات' => 'beverages',
+            'بقالة' => 'grocery',
+            'مخبوزات' => 'bakery',
+            'لحوم ودواجن' => 'meat-poultry',
+            'الألبان والبيض' => 'dairy-eggs',
+            'خضار وفاكهة' => 'fruits-vegetables',
         ];
 
         foreach ($categories as $name => $slug) {

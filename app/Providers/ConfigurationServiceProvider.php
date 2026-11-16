@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -59,6 +61,8 @@ class ConfigurationServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'user' => User::class,
+            'category' => Category::class,
+            'product' => Product::class,
         ]);
     }
 }
