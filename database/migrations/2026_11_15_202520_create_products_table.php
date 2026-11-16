@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('barcode')->unique();
             $table->decimal('price', 10, 2);
+            $table->string('unit')->nullable();
             $table->boolean('in_stock');
             $table->timestamps();
         });
