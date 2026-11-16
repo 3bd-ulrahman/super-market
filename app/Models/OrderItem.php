@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Database\Factories\OrderItemFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,11 +16,11 @@ use Illuminate\Support\Carbon;
  * @property string $price_at_purchase
  * @property int $quantity
  * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
  */
+#[UseFactory(OrderItemFactory::class)]
 class OrderItem extends Model
 {
-    /** @use HasFactory<Factory<static>> */
+    /** @use HasFactory<OrderItemFactory> */
     use HasFactory;
 
     protected $table = 'order_items';
